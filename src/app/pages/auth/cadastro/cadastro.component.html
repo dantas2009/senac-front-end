@@ -1,0 +1,65 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h4>Cadastre-se - Compra Inteligente</h4>
+                </div>
+                <div class="card-body">
+                    <form (ngSubmit)="cadastrar()" class="needs-validation" novalidate="">
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="name">Nome Completo</label>
+                                <input ngModel [(ngModel)]="nome" id="name" type="text" class="form-control" name="name" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input ngModel [(ngModel)]="email" id="email" type="email" class="form-control" name="email">
+                            <div class="invalid-feedback">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="password" class="d-block">Senha</label>
+                                <input ngModel [(ngModel)]="senha" id="password" type="password" class="form-control pwstrength"
+                                    data-indicator="pwindicator" name="password">
+                                <div id="pwindicator" class="pwindicator">
+                                    <div class="bar"></div>
+                                    <div class="label"></div>
+                                </div>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="password2" class="d-block">Confirme sua senha</label>
+                                <input ngModel [(ngModel)]="repetir_senha" id="password2" type="password" class="form-control" name="password-confirm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                Cadastrar
+                            </button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4 mb-3">
+                        <div class="text-job text-muted">ou use uma das seguintes opções</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-lg-3 offset-lg-3 text-center">
+                            <a class="btn btn-block btn-social btn-google">
+                                <span class="fab fa-google"></span> Google
+                            </a>
+                        </div>
+                        <div class="col-6 col-lg-3">
+                            <a class="btn btn-block btn-social btn-facebook">
+                                <span class="fab fa-facebook"></span> Facebook
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2 mb-5 text-muted text-center">
+                Já possui uma conta? <a [routerLink]="['/login']">Login</a>
+            </div>
+        </div>
+    </div>
+</div>

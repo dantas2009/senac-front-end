@@ -1,0 +1,15 @@
+
+.chart-pie{
+    height: 300px
+}
+
+@media screen and (max-width: 700px) {
+    .chart-line {
+        height: 200px !important;
+    }
+}
+
+.chart-line{
+    height: 350px;
+}
+

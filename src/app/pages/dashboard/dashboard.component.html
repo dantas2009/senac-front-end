@@ -1,0 +1,146 @@
+<div class="main-content">
+    <section class="section">
+        <div class="row ">
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                    <div class="card-statistic-4">
+                        <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                    <div class="card-content">
+                                        <h5 class="font-15">Despesas atrasadas</h5>
+                                        <h2 class="mb-3 font-18">10</h2>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                                    <div class="banner-img">
+                                        <img src="assets/img/banner/atrasadas.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                    <div class="card-statistic-4">
+                        <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                    <div class="card-content">
+                                        <h5 class="font-15">Despesas pendentes</h5>
+                                        <h2 class="mb-3 font-18">50</h2>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                                    <div class="banner-img">
+                                        <img src="assets/img/banner/pendentes.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                    <div class="card-statistic-4">
+                        <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                    <div class="card-content">
+                                        <h5 class="font-15">Despesas mês atual</h5>
+                                        <h2 class="mb-3 font-18">200</h2>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                                    <div class="banner-img">
+                                        <img src="assets/img/banner/esse-mes.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="card">
+                    <div class="card-statistic-4">
+                        <div class="align-items-center justify-content-between">
+                            <div class="row ">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
+                                    <div class="card-content">
+                                        <h5 class="font-15">Despesas mês passado</h5>
+                                        <h2 class="mb-3 font-18">250</h2>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">
+                                    <div class="banner-img">
+                                        <img src="assets/img/banner/mes-passado.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-12 col-lg-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <h4>Despesas anual</h4>
+                        <div class="card-header-action">
+                            <a [routerLink]="['/despesa/consultar']" class="btn btn-primary">Visualizar</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-9 chart-line">
+                                <canvas id="chartDespesasAno">{{chartDespesasAno}}</canvas>                            </div>
+                            <div class="col-lg-3">
+                                <div class="row mt-5">
+                                    <div class="col-7 col-xl-7 mb-3">Total de despesas</div>
+                                    <div class="col-5 col-xl-5 mb-3">
+                                        <span class="text-big">8,257</span>
+                                    </div>
+                                    <div class="col-7 col-xl-7 mb-3">Total de pagamentos atrasados</div>
+                                    <div class="col-5 col-xl-5 mb-3">
+                                        <span class="text-big">287</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" >
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Gastos por categoria mês passado</h4>
+                    </div>
+                    <div class="card-body mx-auto">
+                        <div class="recent-report__chart chart-pie">
+                            <canvas id="chartDespesasCategoriaAno">{{chartDespesasCategoriaAno}}</canvas>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Gastos por categoria esse ano</h4>
+                    </div>
+                    <div class="card-body mx-auto" >
+                        <div class="recent-report__chart chart-pie">
+                            <canvas id="chartDespesasCategoriaMes">{{chartDespesasCategoriaMes}}</canvas>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

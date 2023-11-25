@@ -1,0 +1,5 @@
+.btn-social>:first-child {
+    width: 55px;
+    line-height: 50px;
+    border-right: none;
+}

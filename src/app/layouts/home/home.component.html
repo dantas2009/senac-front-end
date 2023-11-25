@@ -1,0 +1,137 @@
+<div class="loader"></div>
+<div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar sticky">
+            <div class="form-inline mr-auto">
+                <ul class="navbar-nav mr-3">
+                    <li>
+                        <a href="javascript:void(0)" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
+                            <i-feather name="align-justify"></i-feather>
+                        </a>
+                    </li>
+                    <li>
+                        <form class="form-inline mr-auto">
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" type="search" placeholder="ChatGPT" aria-label="ChatGPT"
+                                        style="border: 0px">
+                                    <a class="btn" href="javascript:void(0)">
+                                        <i class="fas fa-robot"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <ul class="navbar-nav navbar-right">
+                <li class="dropdown dropdown-list-toggle">
+                    <a href="javascript:void(0)" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
+                        <i-feather name="bell" class="bell"></i-feather>
+                    </a>
+                    <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                        <div class="dropdown-title">
+                            Notificações
+                        </div>
+                        <div class="dropdown-list-content dropdown-list-icons">
+                            <a href="javascript:void(0)" class="dropdown-item dropdown-item-unread"> <span
+                                    class="dropdown-item-icon bg-primary text-white"> <i class="fas
+												fa-code"></i>
+                                </span> <span class="dropdown-item-desc"> Template update is
+                                    available now! <span class="time">2 Min
+                                        Ago</span>
+                                </span>
+                            </a> <a href="javascript:void(0)" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white">
+                                    <i class="far
+												fa-user"></i>
+                                </span> <span class="dropdown-item-desc"> <b>You</b> and <b>Dedik
+                                        Sugiharto</b> are now friends <span class="time">10 Hours
+                                        Ago</span>
+                                </span>
+                            </a> <a href="javascript:void(0)" class="dropdown-item"> <span
+                                    class="dropdown-item-icon bg-success text-white"> <i class="fas
+												fa-check"></i>
+                                </span> <span class="dropdown-item-desc"> <b>Kusnaedi</b> has
+                                    moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">12
+                                        Hours
+                                        Ago</span>
+                                </span>
+                            </a> <a href="javascript:void(0)" class="dropdown-item"> <span
+                                    class="dropdown-item-icon bg-danger text-white"> <i
+                                        class="fas fa-exclamation-triangle"></i>
+                                </span> <span class="dropdown-item-desc"> Low disk space. Let's
+                                    clean it! <span class="time">17 Hours Ago</span>
+                                </span>
+                            </a> <a href="javascript:void(0)" class="dropdown-item"> <span class="dropdown-item-icon bg-info text-white">
+                                    <i class="fas
+												fa-bell"></i>
+                                </span> <span class="dropdown-item-desc"> Welcome to Otika
+                                    template! <span class="time">Yesterday</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="dropdown-footer text-center">
+                            <a href="javascript:void(0)">Ver todas <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </li>
+                <li class="dropdown dropdown-list-toggle">
+                    <a href="javascript:void(0)" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
+                        <i-feather name="user" class="user"></i-feather>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right pullDown">
+                        <a [routerLink]="['/conta']" class="dropdown-item has-icon">
+                            <i class="far fa-user"></i>
+                            Conta
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a [routerLink]="['/']" (click)="logout()" class="dropdown-item has-icon text-danger">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Sair
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="main-sidebar sidebar-style-2">
+            <aside id="sidebar-wrapper">
+                <div class="sidebar-brand">
+                    <a [routerLink]="['/']"> <img alt="image" src="assets/img/logo.png" class="header-logo" /> <span
+                            class="logo-name">Compra Inteligente</span>
+                    </a>
+                </div>
+                <ul class="sidebar-menu">
+                    <li class="menu-header"></li>
+                    <li class="dropdown" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a [routerLink]="['/']" class="nav-link">
+                            <i-feather name="monitor"></i-feather><span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="dropdown" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a href="javascript:void(0)" class="menu-toggle nav-link has-dropdown">
+                            <i-feather name="dollar-sign"></i-feather><span>Despesas/Orçamentos</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" [routerLink]="['/despesa/add']" routerLinkActive="active">Adicionar</a></li>
+                            <li><a class="nav-link" [routerLink]="['/despesa/consultar']" routerLinkActive="active">Consultar</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a href="javascript:void(0)" class="menu-toggle nav-link has-dropdown">
+                            <i-feather name="flag"></i-feather><span>Categorias</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="nav-link" [routerLink]="['/categoria/add']" routerLinkActive="active">Adicionar</a></li>
+                            <li><a class="nav-link" [routerLink]="['/categoria/consultar']" routerLinkActive="active">Consultar</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+        </div>
+        <!-- Content -->
+        <router-outlet></router-outlet>
+
+    </div>
+</div>

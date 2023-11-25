@@ -1,0 +1,137 @@
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Adicionar despesa</h4>
+                        </div>
+                        <form [formGroup]="despesaForm" (ngSubmit)="form()" #formDir="ngForm">
+
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label>Categoria</label>
+                                    <div class="float-right">
+                                        <a [routerLink]="['/categoria/add']" class="text-small">
+                                            Adicionar nova categoria
+                                        </a>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-2 col-md-1" *ngFor="let categoria of categorias">
+                                            <div class="selectgroup selectgroup-pills">
+                                                <label class="selectgroup-item">
+                                                    <input type="radio" name="categoria" class="selectgroup-input"
+                                                        [value]="categoria.id_categoria"
+                                                        (change)="selecionarCategoria(categoria.id_categoria)"
+                                                        checked="">
+                                                    <span class="selectgroup-button selectgroup-button-icon"
+                                                        [matTooltip]="categoria.categoria">
+                                                        <i [class]="categoria.icones.icone"></i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="despesa">Nome da despesa</label>
+                                    <input formControlName="despesa" required type="text" class="form-control"
+                                        name="despesa" id="despesa">
+                                    <div *ngIf="despesa.invalid && formDir.submitted" class="text-danger">O nome da
+                                        despesa é obrigatório.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" (change)="pagamentoParcelado()"
+                                            class="custom-control-input" id="pagamentoParcelado">
+                                        <label class="custom-control-label" for="pagamentoParcelado">Pagamento
+                                            parcelado?</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="valorTotal">Valor <span *ngIf="parcelado">total</span></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">R$</div>
+                                            </div>
+                                            <input formControlName="valorTotal" required name="valorTotal"
+                                                id="valorTotal" type="text" class="form-control currency"
+                                                placeholder="1.234,56">
+                                        </div>
+                                        <div *ngIf="(valorTotal.invalid && formDir.submitted)" class="text-danger">O
+                                            valor é obrigatório e precisa ser no formato de valor "###,##".</div>
+                                    </div>
+
+                                    <div *ngIf="parcelado" class="form-group col-md-4">
+                                        <label for="parcelas">Quantidade parcelas</label>
+                                        <input formControlName="parcelas" required name="parcelas" id="parcelas"
+                                            type="number" class="form-control" min="2" max="100">
+                                        <div *ngIf="(parcelas.invalid && formDir.submitted)" class="text-danger">O campo de parcelas é obrigatório, por favor preenchar com um número de 2 até 100.</div>
+                                    </div>
+                                    <div *ngIf="parcelado" class="form-group col-md-4">
+                                        <label for="diaVencimento">Dia do vencimento da parcela</label>
+                                        <input formControlName="diaVencimento" required name="diaVencimento"
+                                            id="diaVencimento" type="number" class="form-control" min="1" max="31">
+                                        <div *ngIf="(diaVencimento.invalid && formDir.submitted)" class="text-danger">O dia do vencimento é obrigatório preencha com um número de 1 até 31.</div>
+                                    </div>
+                                    <div *ngIf="parcelado" class="form-group col-md-4">
+                                        <label for="mesVencimento">Data do incio das parcelas</label>
+                                        <input formControlName="mesVencimento" name="mesVencimento" id="mesVencimento" type="text" class="form-control"
+                                            value="">
+                                            <div *ngIf="(mesVencimento.invalid && formDir.submitted)" class="text-danger">O mês do inicio de vencimento é obrigatório preencha com o formato 'MM-AAAA'.</div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="!parcelado" class="form-group mt-4">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" (change)="despesaQuitada()" [checked]="quitada"
+                                            class="custom-control-input" name="despesaQuitada" id="despesaQuitada">
+                                        <label class="custom-control-label" for="despesaQuitada">Despesa
+                                            quitada?</label>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="!parcelado" class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="dataVencimento">Data de vencimento</label>
+                                        <input formControlName="dataVencimento" required type="text"
+                                            class="form-control" name="dataVencimento" id="dataVencimento">
+
+                                        <div *ngIf="dataVencimento.invalid  && formDir.submitted" class="text-danger">A
+                                            data de vencimento é obrigatório e precisa ser no formato "DD-MM-AAAA
+                                            hh:mm:ss".</div>
+
+                                    </div>
+                                    <div *ngIf="quitada" class="form-group col-md-12">
+                                        <label for="dataPagamento">Data do pagamento</label>
+                                        <input formControlName="dataPagamento" required type="text" class="form-control"
+                                            name="dataPagamento" id="dataPagamento">
+
+                                        <div *ngIf="dataPagamento.invalid  && formDir.submitted" class="text-danger">A
+                                            data de pagamento é obrigatório e precisa ser no formato "DD-MM-AAAA
+                                            hh:mm:ss".</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-primary mr-1" type="submit">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</div>

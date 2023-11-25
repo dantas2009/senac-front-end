@@ -1,0 +1,135 @@
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card">
+            <div class="card-header">
+              <h4>Despesas</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                
+
+                <div class="col-12 col-md-4">
+                  <div class="form-group">
+                    <label>Filtro por categoria</label>
+
+                    <select class="form-control" [(ngModel)]="idCategoria" (change)="carregarDespesasCategoria()">
+                      <option value="0" selected>Todos</option>
+                      <option *ngFor="let categoria of categorias" value="{{categoria.id_categoria}}">{{categoria.categoria}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 ">
+                  <div class="form-group">
+                    <label>Data de vencimento</label>
+
+                    <div class="input-group">
+                      <input type="text" class="form-control daterange-cus dataVencimento" #dataVencimento>
+                      <div class="input-group-append" (click)="dateTimeLimpar()">
+                        <div class="input-group-text">
+                          <i class="fas fa-xmark"></i>
+                        </div>
+                      </div>
+                      <div class="input-group-append" (click)="dateTimeBuscar()">
+                        <div class="input-group-text">
+                          <i class="fas fa-search"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-4 ">
+                  <div class="form-group">
+                    <label>Buscar no nome ou valor</label>
+
+                    <div class="input-group">
+                      <input type="text" class="form-control" [(ngModel)]="pesquisa"  (keyup)="buscar()">
+                    </div>
+
+                  </div>
+                </div>
+                
+              </div>
+              <div *ngIf="totalDespesas != 0" class="row">
+                <div class="table-responsive">
+                  <table mat-table [dataSource]="despesas.data" class="mat-elevation-z8" aria-describedby="Despesas">
+
+                    <!-- Coluna Categoria -->
+                    <ng-container matColumnDef="categoria">
+                      <th mat-header-cell *matHeaderCellDef class="text-center"> Categoria </th>
+                      <td mat-cell *matCellDef="let despesa" class="text-center"> <i
+                          [class]="despesa.categorias.icones.icone" [matTooltip]="despesa.categorias.categoria"></i> </td>
+                    </ng-container>
+
+                    <!-- Coluna Despesa -->
+                    <ng-container matColumnDef="despesa">
+                      <th mat-header-cell *matHeaderCellDef> Despesa </th>
+                      <td mat-cell *matCellDef="let despesa"> {{despesa.despesa}} </td>
+                    </ng-container>
+
+                    <!-- Coluna Valor -->
+                    <ng-container matColumnDef="valor">
+                      <th mat-header-cell *matHeaderCellDef > Valor </th>
+                      <td mat-cell *matCellDef="let despesa" >{{despesa.valor}} </td>
+                    </ng-container>
+
+                    <!-- Coluna Vencimento -->
+                    <ng-container matColumnDef="vencimento">
+                      <th mat-header-cell *matHeaderCellDef class="text-center"> Vencimento </th>
+                      <td mat-cell *matCellDef="let despesa" class="text-center"> {{despesa.vencimento}} </td>
+                    </ng-container>
+
+                    <!-- Coluna Pagamento -->
+                    <ng-container matColumnDef="pagamento">
+                      <th mat-header-cell *matHeaderCellDef class="text-center"> Pagamento </th>
+                      <td mat-cell *matCellDef="let despesa" class="text-center">
+                        <span *ngIf="!despesa.pagamento">
+                          <a href="javascript:void(0)" class="btn btn-success" (click)="pagamento(despesa.id_despesa)">Realizar Pagamento</a>
+                        </span>
+                        <span *ngIf="despesa.pagamento">{{ despesa.pagamento }}</span>
+                      </td>
+                    </ng-container>
+
+                    <!-- Coluna Editar -->
+                    <ng-container matColumnDef="editar">
+                      <th mat-header-cell *matHeaderCellDef class="text-center"> Editar </th>
+                      <td mat-cell *matCellDef="let despesa" class="text-center"><a href="javascript:void(0)"
+                          (click)="editar(despesa.id_despesa)" class="btn btn-primary">Editar</a></td>
+                    </ng-container>
+
+                    <!-- Coluna Remover -->
+                    <ng-container matColumnDef="remover">
+                      <th mat-header-cell *matHeaderCellDef class="text-center"> Remover </th>
+                      <td mat-cell *matCellDef="let despesa" class="text-center"><a href="javascript:void(0)"
+                          (click)="remover(despesa.id_despesa)" class="btn btn-danger">Remover</a></td>
+                    </ng-container>
+
+                    <!-- Definindo as colunas -->
+                    <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+                    <tr mat-row *matRowDef="let row; columns: colunas;"></tr>
+                  </table>
+
+                  <mat-paginator [length]="totalDespesas" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                    (page)="onPaginateChange($event)"
+                    [translate]="{ itemsPerPageLabel: 'Itens por página:' }"></mat-paginator>
+                </div>
+              </div>
+
+              <div *ngIf="totalDespesas == 0" class="row">
+                <div class="col-12">
+                  <h4>Nenhuma despesa encontrada</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

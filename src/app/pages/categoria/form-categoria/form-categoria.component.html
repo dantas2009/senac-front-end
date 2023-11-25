@@ -1,0 +1,55 @@
+<div class="main-content">
+    <section class="section">
+        <div class="section-body">
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <form   (ngSubmit)="form()" class="needs-validation" novalidate="">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Adicionar categoria</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" (change)="mudarStatus()" [checked]="status"
+                                            class="custom-control-input" id="status">
+                                        <label class="custom-control-label" for="status">Status</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Icone</label>
+
+                                    <div class="row">
+                                        <div class="col-2 col-md-1" *ngFor="let icone of icones">
+                                            <div class="selectgroup selectgroup-pills">
+                                                <label class="selectgroup-item">
+                                                    <input type="radio" name="icone" class="selectgroup-input"
+                                                        [value]="icone.id_icone"
+                                                        (change)="selecionarIcone(icone.id_icone)" checked="">
+                                                    <span class="selectgroup-button selectgroup-button-icon">
+                                                        <i [class]="icone.icone"></i>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" form-group">
+                                    <label for="categoria">Nome da categoria</label>
+                                    <input type="text" ngModel [(ngModel)]="categoria" class="form-control" name="categoria" id="categoria">
+                                </div>
+
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-primary mr-1" type="submit">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
