@@ -6,12 +6,12 @@
                     <h4>Login - Compra Inteligente</h4>
                 </div>
                 <div class="card-body">
-                    <form (ngSubmit)="login()" class="needs-validation" novalidate="">
+                    <form  [formGroup]="loginForm" (ngSubmit)="login()" #formDir="ngForm">
                         <div class="form-group">
                             <label for="email">E-mail</label>
-                            <input ngModel [(ngModel)]="email" id="email" type="email" class="form-control" name="email" tabindex="1" required
+                            <input formControlName="email" required id="email" type="email" class="form-control" name="email" tabindex="1" required
                                 autofocus>
-                            <div class="invalid-feedback">Insira um email válido</div>
+                            <div *ngIf="(email.invalid && formDir.submitted)" class="text-danger">Insira um email válido.</div>
                         </div>
                         <div class="form-group">
                             <div class="d-block">
@@ -22,10 +22,10 @@
                                     </a>
                                 </div>
                             </div>
-                            <input [(ngModel)]="senha" id="password" type="password" class="form-control" name="password" tabindex="2"
+                            <input formControlName="senha" id="password" type="password" class="form-control" name="password" tabindex="2"
                                 required>
-                            <div class="invalid-feedback">Preencha o campo</div>
-                        </div>
+                                <div *ngIf="(senha.invalid && formDir.submitted)" class="text-danger">Insira um senha válida.</div>
+                            </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                                 Login

@@ -166,7 +166,7 @@ export class AddDespesaComponent {
     const despesa: Despesa = {
       "id_categoria": this.idCategoria,
       "despesa": this.despesa.value,
-      "valor": this.valorTotal.value,
+      "valor": this.valorTotal.value.replace('.', '').replace(',', '.'),
       "vencimento": this.vencimento,
       "pagamento": this.pagamento,
     }
@@ -179,7 +179,6 @@ export class AddDespesaComponent {
         console.error(err)
       },
     });
-
   }
 
   addParcelado() {
@@ -194,7 +193,7 @@ export class AddDespesaComponent {
     const despesaParcelada: DespesaParcelada = {
       "id_categoria": this.idCategoria,
       "despesa": this.despesa.value,
-      "valor": this.valorTotal.value,
+      "valor": this.valorTotal.value.replace('.', '').replace(',', '.'),
       "parcelas": this.parcelas.value,
       "data_primeiro_vencimento": this.mesVencimento.value,
       "dia_vencimento": this.diaVencimento.value

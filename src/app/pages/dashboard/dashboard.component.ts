@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Chart, registerables } from 'chart.js';
 import { RouterModule } from '@angular/router';
+import { DashboardService } from '../../services/dashboard.service';
 
 Chart.register(...registerables);
 
@@ -17,8 +18,15 @@ export class DashboardComponent {
   chartDespesasCategoriaAno: any = [];
   chartDespesasCategoriaMes: any = [];
 
-  
-  constructor() {}
+  constructor(
+    private _dashboardService: DashboardService
+  ) {}
+
+  atrasadas: number = 0;
+  pendentes: number = 0;
+  mesAtual: number = 0;
+  mesPassado: number = 0;
+  despesasQtdAno: number = 0;
 
   ngOnInit() {
     const reloadOnce = localStorage.getItem('loginReload');
@@ -27,74 +35,139 @@ export class DashboardComponent {
       window.location.reload();
     }
 
-    this.chartDespesasAno = new Chart('chartDespesasAno', {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        datasets: [
-          {
-            label: 'quitadas em dia',
-            data: [12, 19, 30, 50, 20, 30, 12, 19, 30, 50, 20, 30],
-            borderWidth: 1,
-            borderColor: 'rgb(0, 255, 0)',
-            tension: 0.3
-          },
-          {
-            label: 'quitada em atrasado',
-            data: [1, 2, 1, 5, 2, 3, 1, 2, 3, 5, 2, 3],
-            borderWidth: 1,
-            borderColor: 'rgb(255, 0, 0)',
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
+    this.buscarCards();
 
-    this.chartDespesasCategoriaAno = new Chart('chartDespesasCategoriaAno', {
-      type: 'pie',
-      data: {
-        labels: [
-          'Red 300',
-          'Blue 50',
-          'Yellow 100'
-        ],
-        datasets: [{
-          data: [300, 50, 100],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
-          hoverOffset: 4
-        }],
-      }
-    });
+    this.buscarDespesasAno();
 
-    this.chartDespesasCategoriaMes = new Chart('chartDespesasCategoriaMes', {
-      type: 'pie',
-      data: {
-        labels: [
-          'Red 300',
-          'Blue 50',
-          'Yellow 100'
-        ],
-        datasets: [{
-          data: [300, 50, 100],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
-          hoverOffset: 4
-        }],
+    this.buscarDespesasCategoriaMes();
+
+    this.buscarDespesasCategoriaAno();    
+  }
+
+  buscarCards(){
+    this._dashboardService.buscarCards().subscribe({
+      next: (rep) => {
+        this.atrasadas = rep.despesas_atrasadas;
+        this.pendentes = rep.despesas_pendentes;
+        this.mesAtual = rep.despesas_mes_atual;
+        this.mesPassado = rep.despesas_mes_anterior;
       }
     });
   }
 
+  buscarDespesasAno(){
+    this._dashboardService.buscarDespesasAno().subscribe({
+      next: (rep) => {
+
+        this.despesasQtdAno = rep.despesas_qtd_ano;
+
+        const limiteGastos = []
+        for(let i = 0; i < 12; i++){
+          limiteGastos[i] = rep.limite_gastos;
+        }
+
+        this.chartDespesasAno = new Chart('chartDespesasAno', {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            datasets: [
+              {
+                label: 'quitadas em dia',
+                data: rep.valores_por_mes,
+                borderWidth: 2,
+                borderColor: 'rgb(62,156,53)',
+                tension: 0.5
+              },
+              {
+                label: 'limite de gastos',
+                data: limiteGastos,
+                borderWidth: 1,
+                borderColor: 'rgb(255, 0, 0)',
+                tension: 0.5
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+    });
+  }
+
+  buscarDespesasCategoriaMes(){
+    this._dashboardService.buscarDespesasCategoriaMes().subscribe({
+      next: (rep) => {
+
+        const categorias: string[] = []
+        const valores: number[] = []
+        const cores: string[] = []
+
+        rep.despesas_mes.forEach(despesas => {
+          if(despesas.valor > 0){
+            categorias.push(despesas.categoria);
+            valores.push(despesas.valor);
+            cores.push(this.gerarCorRandomica());
+          }
+        });
+
+        this.chartDespesasCategoriaMes = new Chart('chartDespesasCategoriaMes', {
+          type: 'pie',
+          data: {
+            labels: categorias,
+            datasets: [{
+              data: valores,
+              backgroundColor: cores,
+              hoverOffset: 4
+            }],
+          }
+        });
+      }
+    });
+  }
+
+  buscarDespesasCategoriaAno(){
+    this._dashboardService.buscarDespesasCategoriaAno().subscribe({
+      next: (rep) => {
+
+        const categorias: string[] = []
+        const valores: number[] = []
+        const cores: string[] = []
+
+        rep.despesas_ano.forEach(despesas => {
+          if(despesas.valor > 0){
+            categorias.push(despesas.categoria);
+            valores.push(despesas.valor);
+            cores.push(this.gerarCorRandomica());
+          }
+        });
+
+        this.chartDespesasCategoriaAno = new Chart('chartDespesasCategoriaAno', {
+          type: 'pie',
+          data: {
+            labels: categorias,
+            datasets: [{
+              data: valores,
+              backgroundColor: cores,
+              hoverOffset: 4
+            }],
+          }
+        });
+      }
+    });
+  }
+
+  gerarCorRandomica() {
+    var r = Math.floor(Math.random() * 256); 
+    var g = Math.floor(Math.random() * 256); 
+    var b = Math.floor(Math.random() * 256);
+  
+    var cor = 'rgb(' + r + ',' + g + ',' + b + ')';
+  
+    return cor;
+  }
 }

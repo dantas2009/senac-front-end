@@ -75,19 +75,24 @@
                                         <label for="parcelas">Quantidade parcelas</label>
                                         <input formControlName="parcelas" required name="parcelas" id="parcelas"
                                             type="number" class="form-control" min="2" max="100">
-                                        <div *ngIf="(parcelas.invalid && formDir.submitted)" class="text-danger">O campo de parcelas é obrigatório, por favor preenchar com um número de 2 até 100.</div>
+                                        <div *ngIf="(parcelas.invalid && formDir.submitted)" class="text-danger">O campo
+                                            de parcelas é obrigatório, por favor preenchar com um número de 2 até 100.
+                                        </div>
                                     </div>
                                     <div *ngIf="parcelado" class="form-group col-md-4">
                                         <label for="diaVencimento">Dia do vencimento da parcela</label>
                                         <input formControlName="diaVencimento" required name="diaVencimento"
                                             id="diaVencimento" type="number" class="form-control" min="1" max="31">
-                                        <div *ngIf="(diaVencimento.invalid && formDir.submitted)" class="text-danger">O dia do vencimento é obrigatório preencha com um número de 1 até 31.</div>
+                                        <div *ngIf="(diaVencimento.invalid && formDir.submitted)" class="text-danger">O
+                                            dia do vencimento é obrigatório preencha com um número de 1 até 31.</div>
                                     </div>
                                     <div *ngIf="parcelado" class="form-group col-md-4">
-                                        <label for="mesVencimento">Data do incio das parcelas</label>
-                                        <input formControlName="mesVencimento" name="mesVencimento" id="mesVencimento" type="text" class="form-control"
-                                            value="">
-                                            <div *ngIf="(mesVencimento.invalid && formDir.submitted)" class="text-danger">O mês do inicio de vencimento é obrigatório preencha com o formato 'MM-AAAA'.</div>
+                                        <label for="mesVencimento">Data do início das parcelas</label>
+                                        <input formControlName="mesVencimento" name="mesVencimento" id="mesVencimento"
+                                            type="text" class="form-control" value="">
+                                        <div *ngIf="(mesVencimento.invalid && formDir.submitted)" class="text-danger">O
+                                            mês do início de vencimento é obrigatório preencha com o formato 'MM-AAAA'.
+                                        </div>
                                     </div>
                                 </div>
 

@@ -12,16 +12,16 @@ export class DespesaService {
 
   constructor(private _http: HttpClient) { }
 
-  buscarTodos(skip: number, limit: number, idCategoria: number, pesquisa: string, inicio: string, fim: string): Observable<DespesaConsulta>{
-    return this._http.get<DespesaConsulta>(`${this.apiUrl}/despesas/?skip=${skip}&limit=${limit}&categoria=${idCategoria}&pesquisa=${pesquisa}&inicio=${inicio}&fim=${fim}`)
+  buscarTodos(skip: number, limit: number, idCategoria: number, pesquisa: string, inicio: string, fim: string, pendente: boolean): Observable<DespesaConsulta>{
+    return this._http.get<DespesaConsulta>(`${this.apiUrl}/despesas/?skip=${skip}&limit=${limit}&categoria=${idCategoria}&pesquisa=${pesquisa}&inicio=${inicio}&fim=${fim}&pendente=${pendente}`)
   }
 
   buscar(id_despesa: number): Observable<DespesaItem>{
-    return this._http.get<DespesaItem>(this.apiUrl + `/despesas/despesa/${id_despesa}`)
+    return this._http.get<DespesaItem>(`${this.apiUrl}/despesas/despesa/${id_despesa}`)
   }
 
   add(despesa: Despesa): Observable<{}>{
-    return this._http.post<{}>(this.apiUrl + "/despesas/", despesa)
+    return this._http.post<{}>(`${this.apiUrl}/despesas/`, despesa)
   }
 
   addParcelada(despesaParcelada: DespesaParcelada): Observable<{}>{
@@ -33,7 +33,7 @@ export class DespesaService {
   }
 
   editar(id_despesa: number, despesa: Despesa): Observable<{}>{
-    return this._http.put<{}>(this.apiUrl + `/despesas/${id_despesa}`, despesa)
+    return this._http.put<{}>(`${this.apiUrl}/despesas/${id_despesa}`, despesa)
   }
 
   remover(id_despesa: number): Observable<{}>{

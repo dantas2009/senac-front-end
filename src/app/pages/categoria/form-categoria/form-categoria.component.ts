@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 export class FormCategoriaComponent {
   id_categoria: number = 0
   icones: Icone[] = []
-  status: boolean = false
+  status: boolean = true
   id_icone: number = 0
   categoria: string = ''
 

@@ -12,6 +12,7 @@ import { NovaSenhaComponent } from './pages/auth/nova-senha/nova-senha.component
 import { FormCategoriaComponent } from './pages/categoria/form-categoria/form-categoria.component';
 import { ConsultarCategoriaComponent } from './pages/categoria/consultar-categoria/consultar-categoria.component';
 import { ContaComponent } from './pages/conta/conta.component';
+import { EditarDespesaComponent } from './pages/despesa/editar-despesa/editar-despesa.component';
 
 export const routes: Routes = [
     {
@@ -24,7 +25,7 @@ export const routes: Routes = [
                 path: 'despesa',
                 children: [
                     { path: 'add', component: AddDespesaComponent },
-                    { path: 'editar', component: AddDespesaComponent },
+                    { path: 'editar/:idDespesa', component: EditarDespesaComponent },
                     { path: 'consultar', component: ConsultarDespesaComponent },
                 ]
             },

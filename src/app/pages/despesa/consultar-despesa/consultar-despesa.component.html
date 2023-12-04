@@ -7,8 +7,19 @@
           <div class="card">
             <div class="card-header">
               <h4>Despesas</h4>
+              <div class="card-header-action">
+                <a [routerLink]="['/despesa/add']" class="text-small">
+                  Adicionar nova despesa
+                </a>
+              </div>
+
             </div>
             <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <h4>Valor total: {{valorTotal}} - Valor pago: {{valorPago}} - Valor aberto: {{valorAberto}} </h4>
+                </div>
+              </div>
               <div class="row">
                 
 
@@ -18,7 +29,8 @@
 
                     <select class="form-control" [(ngModel)]="idCategoria" (change)="carregarDespesasCategoria()">
                       <option value="0" selected>Todos</option>
-                      <option *ngFor="let categoria of categorias" value="{{categoria.id_categoria}}">{{categoria.categoria}}</option>
+                      <option *ngFor="let categoria of categorias" value="{{categoria.id_categoria}}">
+                        {{categoria.categoria}}</option>
                     </select>
                   </div>
                 </div>
@@ -43,17 +55,27 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-md-4 ">
+                <div class="col-12 col-md-4">
                   <div class="form-group">
-                    <label>Buscar no nome ou valor</label>
+                    <label>Buscar por nome ou valor</label>
 
                     <div class="input-group">
-                      <input type="text" class="form-control" [(ngModel)]="pesquisa"  (keyup)="buscar()">
+                      <input type="text" class="form-control" [(ngModel)]="pesquisa" (keyup)="buscar()">
                     </div>
 
                   </div>
                 </div>
-                
+
+                <div class="col-12">
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" (change)="carregarDespesasPendente()"
+                            class="custom-control-input" id="despesaEmAberto">
+                        <label class="custom-control-label" for="despesaEmAberto">Buscar somente despesas pentendes?</label>
+                    </div>
+                </div>
+                </div>
+
               </div>
               <div *ngIf="totalDespesas != 0" class="row">
                 <div class="table-responsive">
@@ -63,7 +85,8 @@
                     <ng-container matColumnDef="categoria">
                       <th mat-header-cell *matHeaderCellDef class="text-center"> Categoria </th>
                       <td mat-cell *matCellDef="let despesa" class="text-center"> <i
-                          [class]="despesa.categorias.icones.icone" [matTooltip]="despesa.categorias.categoria"></i> </td>
+                          [class]="despesa.categorias.icones.icone" [matTooltip]="despesa.categorias.categoria"></i>
+                      </td>
                     </ng-container>
 
                     <!-- Coluna Despesa -->
@@ -74,8 +97,8 @@
 
                     <!-- Coluna Valor -->
                     <ng-container matColumnDef="valor">
-                      <th mat-header-cell *matHeaderCellDef > Valor </th>
-                      <td mat-cell *matCellDef="let despesa" >{{despesa.valor}} </td>
+                      <th mat-header-cell *matHeaderCellDef> Valor </th>
+                      <td mat-cell *matCellDef="let despesa">{{despesa.valor}} </td>
                     </ng-container>
 
                     <!-- Coluna Vencimento -->
@@ -89,7 +112,8 @@
                       <th mat-header-cell *matHeaderCellDef class="text-center"> Pagamento </th>
                       <td mat-cell *matCellDef="let despesa" class="text-center">
                         <span *ngIf="!despesa.pagamento">
-                          <a href="javascript:void(0)" class="btn btn-success" (click)="pagamento(despesa.id_despesa)">Realizar Pagamento</a>
+                          <a href="javascript:void(0)" class="btn btn-success"
+                            (click)="pagamento(despesa.id_despesa)">Realizar Pagamento</a>
                         </span>
                         <span *ngIf="despesa.pagamento">{{ despesa.pagamento }}</span>
                       </td>

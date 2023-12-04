@@ -30,7 +30,10 @@ export interface DespesaItem {
 
 export interface DespesaConsulta {
     despesas: DespesaItem[],
-    total: number
+    total: number,
+    valor_total: number,
+    valor_pago: number,
+    valor_aberto: number,
 }
 
 export interface DespesaPagamento {

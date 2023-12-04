@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { IconsModule } from '../../icons/icons.module';
 import { AuthService } from '../../services/auth.service';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-
-
 
 @Component({
   selector: 'app-home',

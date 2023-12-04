@@ -13,6 +13,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PaginatorIntl } from '../../../components/paginator';
 import Swal from 'sweetalert2';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-consultar-despesa',
@@ -20,6 +21,7 @@ import Swal from 'sweetalert2';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     MatTooltipModule,
     MatPaginatorModule,
     MatTableModule,
@@ -33,6 +35,14 @@ import Swal from 'sweetalert2';
 })
 
 export class ConsultarDespesaComponent {
+  constructor(
+    private _router: Router,
+    private _renderer: Renderer2,
+    private _despesaService: DespesaService,
+    private _categoriaService: CategoriaService,
+    private _elementRef: ElementRef,
+  ) { }
+
   totalDespesas: number = 0;
   idCategoria: number = 0;
   pesquisa: string = '';
@@ -44,16 +54,12 @@ export class ConsultarDespesaComponent {
   categorias: CategoriaConsulta[] = []
   despesas = new MatTableDataSource<any>();
   colunas = ['categoria', 'despesa', 'valor', 'vencimento', 'pagamento', 'editar', 'remover'];
+  valorTotal: number = 0;
+  valorPago: number = 0;
+  valorAberto: number = 0;
+  pendente = false;
 
   @ViewChild('dataVencimento') inputElement: ElementRef | undefined;
-
-
-  constructor(
-    private _renderer: Renderer2,
-    private _despesaService: DespesaService,
-    private _categoriaService: CategoriaService,
-    private _elementRef: ElementRef,
-  ) { }
 
   ngOnInit(): void {
     this.carregarDespesas();
@@ -143,6 +149,13 @@ export class ConsultarDespesaComponent {
     this.carregarDespesas();
   }
 
+  carregarDespesasPendente(){
+    this.skip = 0;
+    this.limit = 10;
+    this.pendente = !this.pendente;
+    this.carregarDespesas();
+  }
+
   carregarDespesasCategoria(){
     this.skip = 0;
     this.limit = 10;
@@ -150,10 +163,13 @@ export class ConsultarDespesaComponent {
   }
 
   carregarDespesas() {
-    this._despesaService.buscarTodos(this.skip, this.limit, this.idCategoria, this.pesquisa, this.inicio, this.fim).subscribe({
+    this._despesaService.buscarTodos(this.skip, this.limit, this.idCategoria, this.pesquisa, this.inicio, this.fim, this.pendente).subscribe({
       next: (rep) => {
         this.totalDespesas = rep.total;
         this.despesas = new MatTableDataSource<DespesaItem>(rep.despesas);
+        this.valorTotal = rep.valor_total;
+        this.valorPago = rep.valor_pago;
+        this.valorAberto = rep.valor_aberto;
       }
     });
   }
@@ -166,8 +182,8 @@ export class ConsultarDespesaComponent {
     });
   }
 
-  editar(id_despesa: number) {
-    console.log(id_despesa)
+  editar(idDespesa: number) {
+    this._router.navigate(["/despesa/editar", idDespesa]);
   }
 
   remover(id_despesa: number) {
