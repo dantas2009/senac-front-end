@@ -9,7 +9,7 @@ import { Interceptor } from './interceptor/interceptor.service';
   standalone: true,
   imports: [
     CommonModule, 
-    RouterOutlet, 
+    RouterOutlet,
   ],
   providers: [
     Interceptor,
@@ -18,6 +18,7 @@ import { Interceptor } from './interceptor/interceptor.service';
       useClass: Interceptor,
       multi: true,
     },
+    
    ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

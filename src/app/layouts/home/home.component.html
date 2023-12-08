@@ -10,14 +10,14 @@
                             <i-feather name="align-justify"></i-feather>
                         </a>
                     </li>
-                    <li>
+                    <li class="">
                         <form class="form-inline mr-auto">
 
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input class="form-control" type="search" placeholder="ChatGPT" aria-label="ChatGPT"
+                                    <input  [(ngModel)]="inputChatGpt"  name="inputChatGpt" class="form-control" type="search" placeholder="ChatGPT" aria-label="ChatGPT"
                                         style="border: 0px">
-                                    <a class="btn" href="javascript:void(0)">
+                                    <a class="btn" (click)="chatgpt()" href="javascript:void(0)">
                                         <i class="fas fa-robot"></i>
                                     </a>
                                 </div>
@@ -26,8 +26,8 @@
                     </li>
                 </ul>
             </div>
-            <ul class="navbar-nav navbar-right">
-                <li class="dropdown dropdown-list-toggle">
+            <ul class="navbar-nav navbar-right ">
+                <li class="dropdown dropdown-list-toggle d-none">
                     <a href="javascript:void(0)" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
                         <i-feather name="bell" class="bell"></i-feather>
                     </a>

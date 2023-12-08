@@ -7,10 +7,12 @@ import { Token } from '../models/auth/Token';
 import { Usuario } from '../models/Usuario'
 import { Recuperar } from '../models/auth/Recuperar';
 import { NovaSenha } from '../models/auth/NovaSenha';
+import { SocialLogin } from '../models/auth/SocialLogin';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
@@ -26,22 +28,22 @@ export class AuthService {
   }
 
   cadastro(usuario: Usuario): Observable<Token>{
-    return this.http.post<Token>(this.apiUrl + "/auth/cadastro", usuario)
+    return this.http.post<Token>(`${this.apiUrl}/auth/cadastro`, usuario)
   }
 
   login(login: Login): Observable<Token>{
-    return this.http.post<Token>(this.apiUrl + "/auth/login", login)
-  }
-
-  logout(){
-    //this.http.get<Token>(this.apiUrl + "/auth/logout")
+    return this.http.post<Token>(`${this.apiUrl}/auth/login`, login)
   }
 
   recuperar(recuperar: Recuperar): Observable<{}>{
-    return this.http.post<{}>(this.apiUrl + "/auth/recuperar/mail", recuperar)
+    return this.http.post<{}>(`${this.apiUrl}/auth/recuperar/mail`, recuperar)
   }
 
   novaSenha(novasenha: NovaSenha): Observable<Token>{
-    return this.http.post<Token>(this.apiUrl + "/auth/recuperar/senha", novasenha)
+    return this.http.post<Token>(`${this.apiUrl}/auth/recuperar/senha`, novasenha)
+  }
+
+  socialLogin(socialLogin: SocialLogin){
+    return this.http.post<Token>(`${this.apiUrl}/auth/social`, socialLogin)
   }
 }

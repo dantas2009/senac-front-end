@@ -49,7 +49,6 @@ export const routes: Routes = [
             { path: 'cadastre-se', component: CadastroComponent},
             { path: 'recuperar-senha', component: RecuperarSenhaComponent},
             { path: 'nova-senha', component: NovaSenhaComponent},
-
         ]
     }
     
