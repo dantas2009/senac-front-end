@@ -72,7 +72,7 @@ export class DashboardComponent {
             labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
             datasets: [
               {
-                label: 'quitadas em dia',
+                label: 'despesas',
                 data: rep.valores_por_mes,
                 borderWidth: 2,
                 borderColor: 'rgb(62,156,53)',
