@@ -162,11 +162,10 @@ export class DashboardComponent {
   }
 
   gerarCorRandomica() {
-    var r = Math.floor(Math.random() * 256); 
-    var g = Math.floor(Math.random() * 256); 
-    var b = Math.floor(Math.random() * 256);
-  
-    var cor = 'rgb(' + r + ',' + g + ',' + b + ')';
+    const r = Math.floor(Math.random() * 256); 
+    const g = Math.floor(Math.random() * 256); 
+    const b = Math.floor(Math.random() * 256);
+    const cor = 'rgb(' + r + ',' + g + ',' + b + ')';
   
     return cor;
   }

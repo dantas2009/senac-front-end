@@ -52,7 +52,7 @@ export class HomeComponent {
           "vencimento": rep.vencimento,
           "pagamento": rep.pagamento,
         }
-        this.confirmarDespesa(despesa);
+        this.confirmarDespesa(despesa, input.input);
       },
       error: (err) => {
         Swal.fire({
@@ -64,18 +64,26 @@ export class HomeComponent {
 
   }
 
-  async confirmarDespesa(despesa: Despesa) {
-    const vencimento = `<br>Vencimento em ${new Date(despesa.vencimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`;
+  async confirmarDespesa(despesa: Despesa, input: string) {
+    const vencimento = `<b>Vencimento:</b> ${new Date(despesa.vencimento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`;
     let pagamento = ''
     if(despesa.pagamento){
-      pagamento = `<br>Pagamento em ${new Date(despesa.pagamento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}.`;
+      pagamento = `<b>Pagamento:</b> ${new Date(despesa.pagamento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}.`;
     }else{
       despesa.pagamento = ''
     }
 
+    const chatgpt = `<b>Solicitação ao ChatGPT:</b> ${input}`;
+
     await Swal.fire({
       title: "Você gostaria de adicionar essa despesa?",
-      html: `Despesa: ${despesa.despesa}. <br> Valor: R$ ${despesa.valor.toString().replace('.', ',')}. ${vencimento}. ${pagamento}`,
+      html: `<div style="text-align: left;">
+        <b>Despesa:</b> ${despesa.despesa}. <br> 
+        <b>Valor:</b> R$ ${despesa.valor.toString().replace('.', ',')}. <br> 
+        ${vencimento}. <br> 
+        ${pagamento} <br> <br>
+        ${chatgpt}
+        </div>`,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
