@@ -1,6 +1,6 @@
 # Smart Shopping
 
-<h1 align="center">Projeto Final (Back-end) - Pós Full-Stack</h1>
+<h1 align="center">Final Project (Front-end) - Post Full-Stack</h1>
 
 ## Introduction
 Facing the complexity of daily expenses is a common reality. We present Smart Shopping, an integrated platform that simplifies expense management.
@@ -21,3 +21,30 @@ The choice of Angular 17 and Bootstrap 4 frameworks on the front-end was motivat
 Before running the project, ensure you have the following installed:
 - [Node.js](https://nodejs.org): JavaScript runtime environment
 - [Angular CLI](https://cli.angular.io): Command-line interface for Angular
+
+Before installing and running the front-end, ensure that the back-end server is up and running. You can find instructions on how to set up the back-end in its README.
+[Back end](https://github.com/dantas2009/senac-back-end)
+
+### Installation
+1. Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/dantas2009/senac-front-end.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd senac-front-end
+```
+3. Install dependencies:
+
+```bash
+npm install
+```
+
+4. Start the Angular development server:
+
+```bash
+ng serve
+```
